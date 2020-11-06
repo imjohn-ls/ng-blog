@@ -1,5 +1,5 @@
 
-
+import MyHome from '@/layout/my-home/my-home'
 let appRouters = [
   {
     path: '/login',
@@ -21,6 +21,7 @@ let appRouters = [
     path: '/',
     name: '_myHome',
     redirect: '/home',
+    component: MyHome,
     meta: {
       notCache: true
     },

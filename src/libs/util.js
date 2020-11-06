@@ -428,3 +428,10 @@ export const isEmptyObject =  (data) => {
   }
   return false
 }
+
+// 表单验证
+export const checkId = (item) => {
+  if (item.length < 6) {
+    return false;
+  }
+}

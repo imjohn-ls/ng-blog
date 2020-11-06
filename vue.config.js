@@ -9,6 +9,7 @@ const resolve = dir => {
 process.env.VUE_APP_VERSION = require("./package.json").version;
 process.env.VUE_APP_BUILD_TIME = require("dayjs")().format("YYYY-M-D HH:mm:ss");
 
+
 let publicPath = "";
 if (process.env.MODE_ENV === "development") {
   publicPath = "/";
@@ -22,28 +23,21 @@ module.exports = {
   productionSourceMap: true, // 生产环境是否生成 sourceMap 文件
   // 构建时开启多进程处理 babel 编译
   parallel: require("os").cpus().length > 1,
-  transpileDependencies: ["axios", /vue-particles/],
   // webpack-dev-server 相关配置
   devServer: {
     open: true,
-    inline: true, // 开启实时刷新
-    // host: "0.0.0.0", // 允许外部ip访问
-    // port: 8024, // 端口
-    // https: false, // 启用https
-    overlay: {
-      warnings: true,
-      errors: true
-    }, // 错误、警告在页面弹出
-    proxy: {
-      "/api": {
-        target: "http://localhost:3000",
-        changeOrigin: true, // 允许websockets跨域
-        ws: true,
-        pathRewrite: {
-          "^/api": ""
-        }
-      }
-    } // 代理转发配置，用于调试环境
+    proxy: "http://127.0.0.1:8081",
+    port: 8085
+    // proxy: {
+    //   "/api": {
+    //     target: "http://localhost:3000",
+    //     changeOrigin: true, // 允许websockets跨域
+    //     ws: true,
+    //     pathRewrite: {
+    //       "^/api": ""
+    //     }
+    //   }
+    // }
   },
   configureWebpack: config => {
     if (process.env.MODE_ENV === "production") {
