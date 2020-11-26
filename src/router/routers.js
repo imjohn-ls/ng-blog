@@ -1,5 +1,6 @@
 
 import MyHome from '@/layout/my-home/my-home'
+import demo from './modules/demo/index'
 let appRouters = [
   {
     path: '/login',
@@ -35,7 +36,8 @@ let appRouters = [
         component: () => import('@/views/home/home.vue')
       }
     ]
-  }
+  },
+  ...demo
 ]
 
 export const routers = [
