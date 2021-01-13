@@ -1,6 +1,10 @@
 <template>
   <div class="app-home">
-    <el-button @click="goTo">demo</el-button>
+    <el-button @click="goTo('./demo')">demo</el-button>
+    <el-button @click="goTo('./m-table')">m-table</el-button>
+    <el-button @click="goTo('./m-filter')">m-filter</el-button>
+    <el-button @click="goTo('./m-provider')">m-provider</el-button>
+    <el-button @click="goTo('./m-file')">m-file</el-button>
     <el-table :data="tableData" style="width: 100%">
       <el-table-column prop="id" label="id" width="80"> </el-table-column>
       <el-table-column prop="username" label="姓名" width="80"> </el-table-column>
@@ -76,17 +80,17 @@ export default {
     this.test()
   },
   methods: {
-    goTo () {
-      this.$router.push('/v-slot')
+    goTo(val) {
+      this.$router.push(val)
     },
-    test () {
+    test() {
       this.$axios.get('/userAll').then(res => {
         if (res.status === 200) {
           this.tableData = res.data
         }
       })
     },
-    handleClick (item) {
+    handleClick(item) {
       this.showMainDetail = true
       this.detailInfo = item
     },

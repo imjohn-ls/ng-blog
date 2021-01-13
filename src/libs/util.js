@@ -7,7 +7,7 @@ const { title, cookieExpires, useI18n } = config
 export const TOKEN_KEY = 'token'
 // export const USERINFO_KEY = 'userInfo'
 
-export const setToken = (token) => {
+export const setToken = token => {
   // Cookies.set(TOKEN_KEY, token, { expires: cookieExpires || 1 })
   Cookies.set(TOKEN_KEY, token)
 }
@@ -21,7 +21,7 @@ export const removeToken = () => {
   Cookies.remove(TOKEN_KEY)
 }
 
-export const hasChild = (item) => {
+export const hasChild = item => {
   return item.children && item.children.length !== 0
 }
 
@@ -62,28 +62,30 @@ export const getBreadCrumbList = (route, homeRoute) => {
   let homeItem = { ...homeRoute, icon: homeRoute.meta.icon }
   let routeMetched = route.matched
   if (routeMetched.some(item => item.name === homeRoute.name)) return [homeItem]
-  let res = routeMetched.filter(item => {
-    return item.meta === undefined || !item.meta.hideInBread
-  }).map(item => {
-    let meta = { ...item.meta }
-    if (meta.title && typeof meta.title === 'function') {
-      meta.__titleIsFunction__ = true
-      meta.title = meta.title(route)
-    }
-    let obj = {
-      icon: (item.meta && item.meta.icon) || '',
-      name: item.name,
-      meta: meta
-    }
-    return obj
-  })
+  let res = routeMetched
+    .filter(item => {
+      return item.meta === undefined || !item.meta.hideInBread
+    })
+    .map(item => {
+      let meta = { ...item.meta }
+      if (meta.title && typeof meta.title === 'function') {
+        meta.__titleIsFunction__ = true
+        meta.title = meta.title(route)
+      }
+      let obj = {
+        icon: (item.meta && item.meta.icon) || '',
+        name: item.name,
+        meta: meta
+      }
+      return obj
+    })
   res = res.filter(item => {
     return !item.meta.hideInMenu
   })
   return [{ ...homeItem, to: homeRoute.path }, ...res]
 }
 
-export const getRouteTitleHandled = (route) => {
+export const getRouteTitleHandled = route => {
   let router = { ...route }
   let meta = { ...route.meta }
   let title = ''
@@ -173,7 +175,7 @@ const hasAccess = (access, route) => {
  * @description 用户是否可跳转到该页
  */
 export const canTurnTo = (name, access, routes) => {
-  const routePermissionJudge = (list) => {
+  const routePermissionJudge = list => {
     return list.some(item => {
       if (item.children && item.children.length) {
         return routePermissionJudge(item.children)
@@ -232,21 +234,24 @@ export const doCustomTimes = (times, callback) => {
  * @returns {Promise} resolve参数是解析后的二维数组
  * @description 从Csv文件中解析出表格，解析成二维数组
  */
-export const getArrayFromFile = (file) => {
+export const getArrayFromFile = file => {
   let nameSplit = file.name.split('.')
   let format = nameSplit[nameSplit.length - 1]
   return new Promise((resolve, reject) => {
     let reader = new FileReader()
     reader.readAsText(file) // 以文本格式读取
     let arr = []
-    reader.onload = function (evt) {
+    reader.onload = function(evt) {
       let data = evt.target.result // 读到的数据
       let pasteData = data.trim()
-      arr = pasteData.split((/[\n\u0085\u2028\u2029]|\r\n?/g)).map(row => {
-        return row.split('\t')
-      }).map(item => {
-        return item[0].split(',')
-      })
+      arr = pasteData
+        .split(/[\n\u0085\u2028\u2029]|\r\n?/g)
+        .map(row => {
+          return row.split('\t')
+        })
+        .map(item => {
+          return item[0].split(',')
+        })
       if (format === 'csv') resolve(arr)
       else reject(new Error('[Format Error]:你上传的不是Csv文件'))
     }
@@ -258,7 +263,7 @@ export const getArrayFromFile = (file) => {
  * @returns {Object} { columns, tableData }
  * @description 从二维数组中获取表头和表格数据，将第一行作为表头，用于在iView的表格中展示数据
  */
-export const getTableDataFromArray = (array) => {
+export const getTableDataFromArray = array => {
   let columns = []
   let tableData = []
   if (array.length > 1) {
@@ -332,7 +337,7 @@ export const routeEqual = (route1, route2) => {
   const params2 = route2.params || {}
   const query1 = route1.query || {}
   const query2 = route2.query || {}
-  return (route1.name === route2.name) && objEqual(params1, params2) && objEqual(query1, query2)
+  return route1.name === route2.name && objEqual(params1, params2) && objEqual(query1, query2)
 }
 
 /**
@@ -341,7 +346,7 @@ export const routeEqual = (route1, route2) => {
 export const routeHasExist = (tagNavList, routeItem) => {
   let len = tagNavList.length
   let res = false
-  doCustomTimes(len, (index) => {
+  doCustomTimes(len, index => {
     if (routeEqual(tagNavList[index], routeItem)) res = true
   })
   return res
@@ -351,24 +356,23 @@ export const localSave = (key, value) => {
   localStorage.setItem(key, value)
 }
 
-export const localRead = (key) => {
+export const localRead = key => {
   return localStorage.getItem(key) || ''
 }
 
 // scrollTop animation
 export const scrollTop = (el, from = 0, to, duration = 500, endCallback) => {
   if (!window.requestAnimationFrame) {
-    window.requestAnimationFrame = (
+    window.requestAnimationFrame =
       window.webkitRequestAnimationFrame ||
       window.mozRequestAnimationFrame ||
       window.msRequestAnimationFrame ||
-      function (callback) {
+      function(callback) {
         return window.setTimeout(callback, 1000 / 60)
       }
-    )
   }
   const difference = Math.abs(from - to)
-  const step = Math.ceil(difference / duration * 50)
+  const step = Math.ceil((difference / duration) * 50)
 
   const scroll = (start, end, step) => {
     if (start === end) {
@@ -376,9 +380,9 @@ export const scrollTop = (el, from = 0, to, duration = 500, endCallback) => {
       return
     }
 
-    let d = (start + step > end) ? end : start + step
+    let d = start + step > end ? end : start + step
     if (start > end) {
-      d = (start - step < end) ? end : start - step
+      d = start - step < end ? end : start - step
     }
 
     if (el === window) {
@@ -408,19 +412,20 @@ export const setTitle = (routeItem, vm) => {
  * @param data
  * @returns {boolean}
  */
-export const isEmptyObject =  (data) => {
-  if (typeof data === 'number') // 数字都不为空
-  {
+export const isEmptyObject = data => {
+  if (typeof data === 'number') {
+    // 数字都不为空
     return false
   }
   if (data === undefined || data === null || data === '') {
     return true
   }
   // 如果是数组
-  if (data.__proto__.constructor === Array){
+  if (data.__proto__.constructor === Array) {
     return data.length === 0
   }
-  if (typeof data === 'object') { // 如果是json对象
+  if (typeof data === 'object') {
+    // 如果是json对象
     for (let i in data) {
       return !1
     }
@@ -430,8 +435,8 @@ export const isEmptyObject =  (data) => {
 }
 
 // 表单验证
-export const checkId = (item) => {
+export const checkId = item => {
   if (item.length < 6) {
-    return false;
+    return false
   }
 }

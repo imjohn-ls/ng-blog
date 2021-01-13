@@ -11,20 +11,32 @@
 </template>
 
 <script>
-import top from "./components/top";
-import bottom from "./components/bottom";
+import top from './components/top'
+import bottom from './components/bottom'
 export default {
+  provide() {
+    return {
+      message: 'demo',
+      reload: this.reload
+    }
+  },
   components: {
     top,
     bottom
   },
   data() {
     return {
-      content: "",
+      content: '',
       isRouterAlive: true
-    };
+    }
+  },
+  methods: {
+    reload() {
+      this.isRouterAlive = false
+      this.$nextTick(() => (this.isRouterAlive = true))
+    }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>

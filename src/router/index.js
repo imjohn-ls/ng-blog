@@ -3,7 +3,6 @@ import Router from 'vue-router'
 import { routers } from './routers'
 import { canTurnTo, setTitle, getToken, removeToken, isEmptyObject } from '@/libs/util'
 import config from '@/config'
-const { homeName } = config
 
 Vue.use(Router)
 const router = new Router({

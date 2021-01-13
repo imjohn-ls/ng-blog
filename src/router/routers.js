@@ -34,10 +34,10 @@ let appRouters = [
           title: '首页'
         },
         component: () => import('@/views/home/home.vue')
-      }
+      },
+      ...demo
     ]
-  },
-  ...demo
+  }
 ]
 
 export const routers = [

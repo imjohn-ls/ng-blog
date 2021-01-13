@@ -25,37 +25,27 @@ module.exports = {
   // webpack-dev-server 相关配置
   devServer: {
     open: true,
-    proxy: 'http://127.0.0.1:8081',
-    port: 8085
-    // proxy: {
-    //   "/api": {
-    //     target: "http://localhost:3000",
-    //     changeOrigin: true, // 允许websockets跨域
-    //     ws: true,
-    //     pathRewrite: {
-    //       "^/api": ""
-    //     }
-    //   }
-    // }
+    // proxy: 'http://127.0.0.1:9000',
+    port: 8085,
+    proxy: {
+      '/api': {
+        target: 'http://127.0.0.1:9000',
+        changeOrigin: true, // 允许websockets跨域
+        ws: true,
+        pathRewrite: {
+          '^/api': ''
+        }
+      }
+    }
   },
   configureWebpack: config => {
-    if (process.env.MODE_ENV === 'production') {
-      config.mode = 'production'
+    if (process.env.MODE_ENV !== 'development') {
+      // config.mode = 'production'
       // 移除console
-      minimizer: [
-        new UglifyPlugin({
-          uglifyOptions: {
-            warnings: false,
-            compress: {
-              drop_console: true, // console
-              drop_debugger: false,
-              pure_funcs: ['console.log'] // 移除console
-            }
-          }
-        })
-      ]
-    } else {
-      config.mode = 'development'
+      config.optimization.minimizer[0].options.terserOptions.compress.warnings = false
+      config.optimization.minimizer[0].options.terserOptions.compress.drop_console = true
+      config.optimization.minimizer[0].options.terserOptions.compress.drop_debugger = true
+      config.optimization.minimizer[0].options.terserOptions.compress.pure_funcs = ['console.log']
     }
     // let rules = [
     //   {
@@ -90,6 +80,12 @@ module.exports = {
         limit: 10240 // 图片小于10k转为base64,默认4k
       })
       .end()
+    // 判断环境加入模拟数据
+    const entry = config.entry('app')
+    console.log(process.env.VUE_APP_BUILD_MODE)
+    if (process.env.VUE_APP_BUILD_MODE !== 'NOMOCK') {
+      entry.add('@/mock').end()
+    }
     // 开启js、css压缩
     if (process.env.MODE_ENV === 'production') {
       config.plugin('compressionPlugin').use(
