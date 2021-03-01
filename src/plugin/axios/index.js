@@ -21,14 +21,8 @@ service.interceptors.request.use(
 // 响应拦截器
 service.interceptors.response.use(
   response => {
-    if (response.config.responseType === 'blob') {
-      if (!response.config.url.includes('getImage3.do')) {
-        downloadFile(response)
-      }
-      return response
-    }
     // dataAxios 是 axios 返回数据中的 data
-    const dataAxios = response.data.body
+    const dataAxios = response.data
 
     return dataAxios || response.data
   },
@@ -74,35 +68,4 @@ service.interceptors.response.use(
     }
   }
 )
-
-function downloadFile(res) {
-  if (!res.data) {
-    return
-  }
-
-  let blob = new Blob([res.receiptFile], {
-    type: 'application/actet-stream;charset=utf-8'
-  })
-  // for IE
-  if (window.navigator && window.navigator.msSaveOrOpenBlob) {
-    window.navigator.msSaveOrOpenBlob(blob, res.headers['content-disposition'].split(';')[1].split('filename=')[1])
-  }
-  // for Non-IE (chrome, firefox etc.)
-  else {
-    let objectUrl = URL.createObjectURL(blob)
-    let a = document.createElement('a')
-    a.href = objectUrl
-    a.download = res.headers['content-disposition'].split(';')[1].split('filename=')[1]
-    // a.click();
-    // 下面这个写法兼容火狐
-    a.dispatchEvent(
-      new MouseEvent('click', {
-        bubbles: true,
-        cancelable: true,
-        view: window
-      })
-    )
-    window.URL.revokeObjectURL(blob)
-  }
-}
 export default service

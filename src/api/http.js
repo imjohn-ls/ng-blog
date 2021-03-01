@@ -3,35 +3,79 @@ import qs from 'qs'
 let commonData = {
   _SessionId: '' // 会话Id
 }
+// export function httpGet(url, params = {}) {
+//   commonData = {
+//     ...commonData
+//   }
+//   return request({
+//     url,
+//     method: 'get',
+//     params: {
+//       ...params
+//     }
+//   })
+// }
+
 export function httpGet(url, params = {}) {
-  commonData = {
-    ...commonData
-  }
-  return request({
-    url,
-    method: 'get',
-    params: {
-      ...params
-    }
+  return new Promise((resolve, reject) => {
+    request({
+      url,
+      method: 'get',
+      params: {
+        ...params
+      }
+    })
+      .then(res => {
+        resolve(res.data)
+      })
+      .catch(err => {
+        reject(err.data)
+      })
   })
 }
 
-export function httpPost (url, data = {}) {
-  return request({
-    url,
-    method: 'post',
-    headers: {
-      'Content-Type': 'application/json; charset=utf-8'
-    },
-    data: {
-      ...data,
-      ...commonData
-    },
-    transformRequest: [
-      function(data) {
-        return JSON.stringify(data)
-      }
-    ]
+// export function httpPost (url, data = {}) {
+//   return request({
+//     url,
+//     method: 'post',
+//     headers: {
+//       'Content-Type': 'application/json; charset=utf-8'
+//     },
+//     data: {
+//       ...data,
+//       ...commonData
+//     },
+//     transformRequest: [
+//       function(data) {
+//         return JSON.stringify(data)
+//       }
+//     ]
+//   })
+// }
+export function httpPost(url, data = {}) {
+  return new Promise((resolve, reject) => {
+    request({
+      url,
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8'
+      },
+      data: {
+        ...data,
+        ...commonData
+      },
+      transformRequest: [
+        function(data) {
+          return JSON.stringify(data)
+        }
+      ]
+    })
+      .then(res => {
+        resolve(res.data)
+      })
+      .catch(err => {
+        reject(err.data)
+      })
   })
 }
 

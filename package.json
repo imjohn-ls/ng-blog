@@ -14,8 +14,10 @@
     "dayjs": "^1.9.4",
     "element-ui": "^2.14.0",
     "js-cookie": "^2.2.1",
+    "jsbarcode": "^3.11.3",
     "mockjs": "^1.1.0",
     "vue": "^2.6.11",
+    "vue-qr": "^2.3.0",
     "vue-router": "^3.2.0",
     "vuex": "^3.4.0"
   },

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+        function handler(val) {
+            debugger
+        let baseAuthArr = [];
+        let strongAuthArr = [];
+
+        val.forEach(item => {
+          if (item.length == 1) {
+
+            baseAuthArr.push(item)
+
+          } else if (item.length == 2) {
+            if (!baseAuthArr.includes(item[0])) {
+              baseAuthArr.push(item[0])
+            }
+            if (!strongAuthArr.includes(item[1])) {
+              strongAuthArr.push(item[1])
+            }
+          }
+
+        })
+        // TK  TS
+        console.log(baseAuthArr);  
+        console.log(strongAuthArr); 
+    //     this.baseAuthArr = baseAuthArr;
+    //     this.baseAuthString = baseAuthArr[0]
+
+    //     this.strongAuthArr = strongAuthArr||'';
+    //     this.strongAuthString = strongAuthArr[0]||'';
+       }
+      handler(['ST','KT'])
+    //   handler(['T','S'])
+    </script>
+  </body>
+</html>

@@ -43,5 +43,23 @@ export default [
       auth: false,
       title: 'file'
     }
+  },
+  {
+    path: '/m-qrcode',
+    name: 'm-qrcode',
+    component: () => import('@/views/demo/m-qrcode/index'),
+    meta: {
+      auth: false,
+      title: 'file'
+    }
+  },
+  {
+    path: '/m-class',
+    name: 'm-class',
+    component: () => import('@/views/demo/class/index'),
+    meta: {
+      auth: false,
+      title: 'file'
+    }
   }
 ]

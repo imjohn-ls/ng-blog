@@ -5,6 +5,8 @@
     <el-button @click="goTo('./m-filter')">m-filter</el-button>
     <el-button @click="goTo('./m-provider')">m-provider</el-button>
     <el-button @click="goTo('./m-file')">m-file</el-button>
+    <el-button @click="goTo('./m-qrcode')">m-qrcode</el-button>
+    <el-button @click="goTo('./m-class')">m-class</el-button>
     <el-table :data="tableData" style="width: 100%">
       <el-table-column prop="id" label="id" width="80"> </el-table-column>
       <el-table-column prop="username" label="姓名" width="80"> </el-table-column>

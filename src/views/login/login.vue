@@ -1,12 +1,12 @@
 <template>
   <div class="login">
     <div class="login-form">
-      <login-form @on-success-valid="handleSubmit"></login-form>
+      <!-- <login-form @on-success-valid="handleSubmit"></login-form> -->
     </div>
   </div>
 </template>
 <script>
-import LoginForm from '_c/login-form'
+// import LoginForm from '_c/login-form'
 export default {
   data() {
     return {
