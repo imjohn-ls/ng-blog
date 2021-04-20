@@ -1,43 +1,58 @@
 import Vue from 'vue'
-import Router from 'vue-router'
-import { routers } from './routers'
-import { canTurnTo, setTitle, getToken, removeToken, isEmptyObject } from '@/libs/util'
-import config from '@/config'
+import VueRouter from 'vue-router'
 
-Vue.use(Router)
-const router = new Router({
-  routes: routers,
-  mode: 'history'
+// 路由数据
+import routes from './routers'
+
+Vue.use(VueRouter)
+
+// import RegisteredAccount from '../views/home/RegisteredAccount/index'
+// 解决重复点击菜单报错 Uncaught (in promise) NavigationDuplicated{_name: "NavigationDuplicated", name: "NavigationDuplicated"}
+const originalPush = VueRouter.prototype.push
+VueRouter.prototype.push = function push(location) {
+  return originalPush.call(this, location).catch(err => err)
+}
+
+// 导出路由 在 main.js 里使用
+const router = new VueRouter({
+  // mode: 'history',
+  mode: 'hash',
+  routes,
+  scrollBehavior(to, from, savedPosition) {
+    if (savedPosition) {
+      return savedPosition
+    } else {
+      return { x: 0, y: 0 }
+    }
+  }
 })
-const LOGIN_PAGE_NAME = 'login'
-
-// router.beforeEach((to, from, next) => {
-//   // iView.LoadingBar.start()
-//   const TOKEN = getToken()
-//   if (!TOKEN) {
-//     // 未登录且要跳转的页面不是登录页 也不是注册页 也不是用户绑定页面
-//     if (to.name !== LOGIN_PAGE_NAME && to.name !== 'register' && to.name !== 'bind' && to.name !== 'visitorLogin') {
-//       next({
-//         replace: true, name: LOGIN_PAGE_NAME
-//         // name: LOGIN_PAGE_NAME // 跳转到登录页
-//       })
-//     }
-//   } else if (!TOKEN && to.name === LOGIN_PAGE_NAME) {
-//     // 未登陆且要跳转的页面是登录页
-//     next() // 跳转
-//   } else if (TOKEN && to.name === LOGIN_PAGE_NAME) {
-//     // 已登录且要跳转的页面是登录页
-//     next({
-//       name: homeName // 跳转到homeName页
-//     })
-//   } else {
-//   }
-//   next() //
-// })
-
-router.afterEach(to => {
-  setTitle(to, router.app)
-  // iView.LoadingBar.finish()
-  window.scrollTo(0, 0)
+/**
+ * 路由拦截
+ * 权限验证
+ */
+router.beforeEach(async (to, from, next) => {
+  const token = sessionStorage.getItem('SESSION_ID')
+  // 首次登录
+  if (token) {
+    if (to.path === '/login') {
+      next({
+        path: '/home'
+      })
+    } else {
+      next()
+    }
+  } else {
+    // 登录拦截,验证当前路由所有的匹配中是否需要有登录验证的
+    if (to.matched.some(r => r.meta.auth)) {
+      // 没有登录的时候跳转到首页
+      next({
+        path: '/login'
+      })
+    } else {
+      // 不需要身份校验 直接通过
+      next()
+    }
+  }
 })
+
 export default router

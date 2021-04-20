@@ -278,6 +278,7 @@ export default {
   },
   mounted() {
     this.init()
+    this.test()
     // for (let i = 0; i < this.tableData.length; i++) {
     //   this.tableData[i].list.forEach(ele => {
     //     this.tableArr.push(this.tableData[i].list.length)
@@ -324,7 +325,11 @@ export default {
       //   debugger
       //   console.log(res)
       // })
-      this.$httpGet('contactList', {}).then(res => {
+      // this.$httpGet('/p1', {}).then(res => {
+      //   console.log(res)
+      // })
+      debugger
+      this.$httpPost('/p1', { name: 'john' }).then(res => {
         debugger
         console.log(res)
       })

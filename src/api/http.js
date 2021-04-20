@@ -1,7 +1,7 @@
 import request from '@/plugin/axios'
 import qs from 'qs'
 let commonData = {
-  _SessionId: '' // 会话Id
+  _SessionId: 'test' // 会话Id
 }
 // export function httpGet(url, params = {}) {
 //   commonData = {
@@ -26,10 +26,10 @@ export function httpGet(url, params = {}) {
       }
     })
       .then(res => {
-        resolve(res.data)
+        resolve(res)
       })
       .catch(err => {
-        reject(err.data)
+        reject(err)
       })
   })
 }
@@ -71,50 +71,36 @@ export function httpPost(url, data = {}) {
       ]
     })
       .then(res => {
-        resolve(res.data)
+        resolve(res)
       })
       .catch(err => {
-        reject(err.data)
+        reject(err)
       })
   })
 }
 
 export function httpForm(url, data = {}) {
-  let obj = {}
-  if (data.transCode) {
-    obj = {
-      transCode: data.transCode
-    }
-  }
-  // 添加云盾验证标识字段
-  if (sessionStorage.yunSecurityType) {
-    // data.securityType = sessionStorage.yunSecurityType
-    data.SafeWayType = sessionStorage.yunSecurityType
-  } else {
-    delete data.SafeWayType
-  }
-  // 处理公共分页参数 2020年11月25日15:56:22
-  data._PageSize = data.pagesize || data.pageSize
-  data._PageNo = data.currentPage
-  data._MCHTimestamp = new Date().getTime()
-  // 用户序列号统一送 2020年11月25日18:07:11
-  // if (sessionStorage.userInfo) {
-  //   data.userSeq = JSON.parse(sessionStorage.userInfo).userSeq
-  // }
-  return request({
-    url,
-    method: 'post',
-    data: {
-      ...data,
-      ...commonData,
-      ...obj
-    },
-    transformRequest: [
-      function(data) {
-        data = qs.stringify(data)
-        return data
-      }
-    ]
+  return new Promise((resolve, reject) => {
+    return request({
+      url,
+      method: 'post',
+      data: {
+        ...data,
+        ...commonData
+      },
+      transformRequest: [
+        function(data) {
+          data = qs.stringify(data)
+          return data
+        }
+      ]
+    })
+      .then(res => {
+        resolve(res)
+      })
+      .catch(err => {
+        reject(err)
+      })
   })
 }
 

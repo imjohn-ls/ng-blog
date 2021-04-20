@@ -3,7 +3,7 @@ import App from './App.vue'
 import router from './router'
 import axios from 'axios'
 import store from './store'
-import { httpPost, httpGet } from '@/api/http.js'
+import { httpPost, httpGet, httpForm } from '@/api/http.js'
 import ElementUI from 'element-ui'
 import config from '@/config'
 import '@/libs/directive'
@@ -15,6 +15,8 @@ import 'element-ui/lib/theme-chalk/index.css'
 import '@/assets/style/element-theme/index.css'
 import * as filters from '@/libs/filters'
 
+import '@/components/index.js'
+
 /**
  * 全局过滤器
  */
@@ -25,6 +27,7 @@ Vue.config.productionTip = false
 Vue.prototype.$config = config
 Vue.prototype.$axios = axios
 Vue.prototype.$httpPost = httpPost
+Vue.prototype.$httpForm = httpForm
 Vue.prototype.$httpGet = httpGet
 
 Vue.use(ElementUI)

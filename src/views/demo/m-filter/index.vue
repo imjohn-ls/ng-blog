@@ -11,7 +11,7 @@
       <p>{{ testData.test | timeFormat }}</p>
     </div>
     <div>
-      <el-input v-model="testValue" v-only-num maxlength="16" placeholder="下区间"></el-input>
+      <el-input v-model="testValue" v-onlyNum maxlength="16" placeholder="下区间"></el-input>
     </div>
     <div>
       <el-button @click="test">test</el-button>
@@ -160,7 +160,9 @@ export default {
       // this.p1 = alist
       console.log('d')
     },
-    init2() {
+    async init2() {
+      const alist = await this.$httpGet('john')
+      this.p1 = alist
       // getList('')
       //   .then(res => {
       //     this.p1 = res
@@ -168,13 +170,13 @@ export default {
       //   .catch(error => {
       //     console.log(error)
       //   })
-      postList({ a: '2' })
-        .then(res => {
-          this.p1 = res
-        })
-        .catch(error => {
-          console.log(error)
-        })
+      // postList({ a: '2' })
+      //   .then(res => {
+      //     this.p1 = res
+      //   })
+      //   .catch(error => {
+      //     console.log(error)
+      //   })
     }
   }
 }

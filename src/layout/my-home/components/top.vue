@@ -3,7 +3,7 @@
     <div class="top_content">
         <div class="topmenulist">
           <ul>
-            <li>寄意寒星</li>
+            <li @click="goHome()">首页</li>
             <li>寄意寒星</li>
             <li>寄意寒星</li>
             <li>寄意寒星</li>
@@ -15,7 +15,15 @@
 </template>
 
 <script>
-export default {};
+export default {
+  methods: {
+    goHome() {
+      this.$router.push({
+        path: '/homes'
+      })
+    }
+  }
+};
 </script>
 
 <style lang="scss" scoped>
@@ -32,6 +40,7 @@ export default {};
       padding: 0;
       display: flex;;
       li {
+        cursor: pointer;
         flex: 1;
         list-style: none;
         font-size: 0.16rem;

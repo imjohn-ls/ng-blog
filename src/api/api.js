@@ -1,7 +1,17 @@
-import { httpGet, httpPost } from './http'
-export const getList = param => {
-  return httpGet('p1', param)
+import { httpPost } from './http'
+/* 查询所有学生 */
+export const perQueryStu = param => {
+  return httpPost('student/findAll', param)
 }
-export const postList = param => {
-  return httpPost('info', param)
+/* 新增学生 */
+export const perAddStu = param => {
+  return httpPost('student/addStu', param)
+}
+/* 删除学生 */
+export const perDelStu = param => {
+  return httpPost('student/delStu', param)
+}
+/* 修改学生信息 */
+export const perEditStu = param => {
+  return httpPost('student/updateStu', param)
 }

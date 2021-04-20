@@ -12,6 +12,7 @@ service.interceptors.request.use(
     return config
   },
   error => {
+    debugger
     // 发送失败
     console.log(error)
     Promise.reject(error)
@@ -21,10 +22,8 @@ service.interceptors.request.use(
 // 响应拦截器
 service.interceptors.response.use(
   response => {
-    // dataAxios 是 axios 返回数据中的 data
-    const dataAxios = response.data
-
-    return dataAxios || response.data
+    const dataAxios = response
+    return dataAxios || response
   },
   error => {
     if (error && error.response) {

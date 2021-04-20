@@ -33,27 +33,14 @@ module.exports = {
       errors: true
     },
     proxy: {
-      // [context]: {
-      //   target: 'http://localhost:3000',
-      //   changeOrigin: true,
-      //   onProxyRes: saveJSON ? recordProxyJson : null
-      // },
-      '/pertrans': {
-        // target: 'http://183.63.131.107:8802',
-        // target: 'http://10.10.17.123:8020',
-        target: 'http://10.10.8.148:8020', // 妙哥
-        // target: 'http://10.10.12.121:8020',//陈阿堤
-        // target: 'http://10.10.8.56:8020',
-        // target: 'http://192.168.137.98:8020',
-        // target: 'http://192.168.137.98:8020',//王兰庭
-        // target: 'http://10.10.17.54:8020',//春生
-        // target: 'http://192.168.137.1:8020',//佩奇
-        // target: 'http://115.182.90.219:30153',//远程
-        // target: 'https://kstest1.kshbank.cn:8020' /* sit */,
+      '/api': {
+        // target: 'http://www.imjohn.cn:9000', // 腾讯云node接口
+        // target: 'http://127.0.0.1:9000', // 本地node接口
+        target: 'http://127.0.0.1:8888', // 本地java接口
         changeOrigin: true,
         onProxyRes: saveJSON ? recordProxyJson : null
         // pathRewrite: {
-        //   '^/pertrans': '/' // 需要rewrite重写的,
+        //   '^/api': '' // 请求的时候使用这个api就可以d
         // }
       }
     },

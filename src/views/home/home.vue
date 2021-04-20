@@ -7,11 +7,12 @@
     <el-button @click="goTo('./m-file')">m-file</el-button>
     <el-button @click="goTo('./m-qrcode')">m-qrcode</el-button>
     <el-button @click="goTo('./m-class')">m-class</el-button>
+    <el-button @click="goTo('./m-blob')">m-blob</el-button>
     <el-table :data="tableData" style="width: 100%">
       <el-table-column prop="id" label="id" width="80"> </el-table-column>
-      <el-table-column prop="username" label="姓名" width="80"> </el-table-column>
+      <el-table-column prop="stuname" label="姓名" width="80"> </el-table-column>
       <el-table-column prop="password" label="密码"> </el-table-column>
-      <el-table-column prop="email" label="邮箱"> </el-table-column>
+      <el-table-column prop="gender" label="年级"> </el-table-column>
       <el-table-column fixed="right" label="操作" width="300">
         <template slot-scope="scope">
           <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
@@ -28,14 +29,14 @@
         <el-form-item label="id" prop="id">
           <el-input type="text" v-model="UserForm.id"></el-input>
         </el-form-item>
-        <el-form-item label="姓名" prop="username">
-          <el-input type="text" v-model="UserForm.username"></el-input>
+        <el-form-item label="姓名" prop="stuname">
+          <el-input type="text" v-model="UserForm.stuname"></el-input>
         </el-form-item>
         <el-form-item label="密码" prop="password">
           <el-input type="password" v-model="UserForm.password"></el-input>
         </el-form-item>
-        <el-form-item label="邮箱" prop="email">
-          <el-input type="text" v-model.number="UserForm.email"></el-input>
+        <el-form-item label="年级" prop="email">
+          <el-input type="text" v-model.number="UserForm.gender"></el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
@@ -49,21 +50,23 @@
           <td>id</td>
           <td>{{ detailInfo.id }}</td>
           <td>姓名</td>
-          <td>{{ detailInfo.username }}</td>
+          <td>{{ detailInfo.stuname }}</td>
         </tr>
         <tr slot="self">
           <td>密码</td>
           <td>{{ detailInfo.password }}</td>
-          <td>邮箱</td>
-          <td>{{ detailInfo.email }}</td>
+          <td>年级</td>
+          <td>{{ detailInfo.gender }}</td>
         </tr>
       </result-table>
     </el-dialog>
   </div>
 </template>
 <script>
+import { perQueryStu, perAddStu, perDelStu, perEditStu } from '@api/api'
 import ResultTable from '@/components/result-table'
 export default {
+  name: 'Home',
   components: {
     ResultTable
   },
@@ -79,31 +82,40 @@ export default {
     }
   },
   mounted() {
+    console.log(this.$router)
     this.test()
   },
   methods: {
     goTo(val) {
       this.$router.push(val)
     },
-    test() {
-      this.$axios.get('/userAll').then(res => {
-        if (res.status === 200) {
-          this.tableData = res.data
-        }
-      })
+    async test() {
+      let result = await perQueryStu()
+      this.tableData = result.data
+      // this.$axios.post('/api/student/findAll').then(res => {
+      //   debugger
+      //   if (res.status === 200) {
+      //     this.tableData = res.data
+      //   }
+      // })
     },
     handleClick(item) {
       this.showMainDetail = true
       this.detailInfo = item
     },
-    deleteRow(index, param) {
+    async deleteRow(index, param) {
       const userId = param[index].id
-      this.$axios.delete(`/user?userId=${userId}`).then(res => {
-        if (res.data) {
-          this.$message('删除成功!')
-          this.tableData.splice(index, 1)
-        }
+      const res1 = await perDelStu({
+        id: userId
       })
+      res1.status === 200 && this.$message('删除成功!')
+      this.tableData.splice(index, 1)
+      // this.$axios.delete(`/user?userId=${userId}`).then(res => {
+      //   if (res.data) {
+      //     this.$message('删除成功!')
+      //     this.tableData.splice(index, 1)
+      //   }
+      // })
     },
     addUser(item, index, param) {
       this.showAddDetail = true
@@ -115,24 +127,29 @@ export default {
         this.UserForm = param
       }
     },
-    submitForm() {
+    async submitForm() {
       if (this.oprate === 'edit') {
-        this.$axios.put('/user', this.UserForm).then(res => {
-          console.log(res)
-          if (res.data) {
-            this.$message('更改成功!')
-            this.tableData[this.index] = this.UserForm
-            this.showAddDetail = false
-          }
-        })
+        const res1 = await perEditStu(this.UserForm)
+        res1.status === 200 && this.$message('修改成功!')
+        // this.$axios.put('/user', this.UserForm).then(res => {
+        //   console.log(res)
+        //   if (res.data) {
+        //     this.$message('更改成功!')
+        //     this.tableData[this.index] = this.UserForm
+        //     this.showAddDetail = false
+        //   }
+        // })
       } else {
-        this.$axios.post('/user', this.UserForm).then(res => {
-          if (res.data === 'success') {
-            this.$message('添加成功!')
-            this.tableData.push(this.UserForm)
-            this.showAddDetail = false
-          }
-        })
+        const res2 = await perAddStu(this.UserForm)
+        res2.status === 200 && this.$message('添加成功!')
+        this.test()
+        // this.$axios.post('/user', this.UserForm).then(res => {
+        //   if (res.data === 'success') {
+        //     this.$message('添加成功!')
+        //     this.tableData.push(this.UserForm)
+        //     this.showAddDetail = false
+        //   }
+        // })
       }
     }
   }

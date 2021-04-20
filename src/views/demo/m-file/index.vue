@@ -2,12 +2,11 @@
   <div>
     <el-upload
       class="upload-demo"
-      action="http://127.0.0.1:9000/api/upload"
+      action="/api/file/upload"
       :on-preview="handlePreview"
       :on-remove="handleRemove"
       :before-remove="beforeRemove"
-      multiple
-      :limit="3"
+      accept="*"
       :on-exceed="handleExceed"
       :file-list="fileList"
     >
@@ -15,14 +14,42 @@
       <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
     </el-upload>
 
-    <div>------------------------------------</div>
-    <div>
+    <div class="under_line"></div>
+    <!-- <el-upload
+      class="upload-demo"
+      action="/api/upload"
+      :on-preview="handlePreview"
+      :on-remove="handleRemove"
+      :before-remove="beforeRemove"
+      multiple
+      :limit="3"
+      accept="image/png, image/jpeg"
+      :on-exceed="handleExceed"
+      :file-list="fileList"
+    >
+      <el-button size="small" type="primary">点击上传</el-button>
+      <div slot="tip" class="el-upload__tip">视频上传</div>
+    </el-upload> -->
+    <!-- <div class="under_line"></div> -->
+    <!-- <div>
       <div class="filebox">
         <el-button size="small" type="primary">点击上传</el-button>
         <input ref="test" type="file" @change="test()" class="filetest" name="test" id="test" accept="image/png, image/jpeg" multiple="multiple" />
       </div>
       <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
       <div class="img-list"></div>
+    </div> -->
+    <!-- <div class="under_line"></div> -->
+    <div>
+      <div class="filebox">
+        <el-button size="small" type="primary">点击上传</el-button>
+        <input ref="test2" type="file" @change="blobStream()" class="filetest" name="test2" id="test2" accept="*" multiple="multiple" />
+      </div>
+      <div slot="tip" class="el-upload__tip">只能上传pm4</div>
+    </div>
+    <div class="under_line"></div>
+    <div>
+      <el-link type="primary" @click="downLoad">下载</el-link>
     </div>
   </div>
 </template>
@@ -59,11 +86,28 @@ export default {
         var reader = new FileReader()
         reader.readAsDataURL(file)
         reader.onload = function(e) {
-          debugger
           var li = document.createElement('li')
           li.innerHTML = `<div class="progress"><span><img src="${e.target.result}" alt=""></span></div>`
           document.querySelector('.img-list').append(li)
         }
+      })
+    },
+    blobStream() {
+      const bsFile = this.$refs.test2.files
+      const audioData = new FormData()
+      audioData.append('file', bsFile[0])
+      console.log(audioData)
+      this.$axios.post('/api/file/upload', audioData).then(res => {
+        console.log(res)
+      })
+      // this.$httpPost('file/upload', audioData).then(res => {
+      //   console.log(res)
+      // })
+    },
+    downLoad() {
+      this.$axios.post('/api/file/download', {}).then(res => {
+        debugger
+        console.log(res)
       })
     }
   }
@@ -84,5 +128,15 @@ export default {
 .filebox {
   height: 32px;
   position: relative;
+}
+.under_line {
+  width: 100%;
+  height: 5px;
+  font-size: 12px;
+  border-bottom: 1px dashed #333;
+  margin: 20px auto;
+}
+.el-upload__tip {
+  margin-top: 30px;
 }
 </style>

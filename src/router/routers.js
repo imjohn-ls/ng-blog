@@ -1,11 +1,16 @@
-
 import MyHome from '@/layout/my-home/my-home'
+import wrap from '@/views/home/home'
 import demo from './modules/demo/index'
-let appRouters = [
+export const frameInRoutes = [
+  {
+    path: '/',
+    redirect: { name: 'login' }
+  },
   {
     path: '/login',
     name: 'login',
     meta: {
+      auth: false,
       title: 'Login - 登录'
     },
     component: () => import('@/views/login/login.vue')
@@ -14,32 +19,28 @@ let appRouters = [
     path: '/register',
     name: 'register',
     meta: {
+      auth: false,
       title: 'register - 注册'
     },
     component: () => import('@/views/register/register.vue')
-  },
+  }
+]
+export const getRouters = [
   {
-    path: '/',
-    name: '_myHome',
-    redirect: '/home',
+    path: '/homes',
     component: MyHome,
-    meta: {
-      notCache: true
-    },
     children: [
       {
-        path: '/home',
-        name: 'home',
+        path: '',
         meta: {
+          auth: true,
           title: '首页'
         },
-        component: () => import('@/views/home/home.vue')
+        component: wrap
       },
       ...demo
     ]
   }
 ]
 
-export const routers = [
-  ...appRouters
-]
+export default [...frameInRoutes, ...getRouters]

@@ -1,49 +1,49 @@
 <template>
   <div class="login">
     <div class="login-form">
-      <!-- <login-form @on-success-valid="handleSubmit"></login-form> -->
+      <el-form ref="form" :model="form" label-width="80px">
+        <el-form-item label="学生姓名">
+          <el-input v-model="form.stuname"></el-input>
+        </el-form-item>
+        <el-form-item label="密码">
+          <el-input type="password" placeholder="请输入密码" v-model="form.password"></el-input>
+        </el-form-item>
+        <el-button @click="comLogin">登录</el-button>
+        <!-- <el-button @click="comRegister">注册</el-button> -->
+      </el-form>
     </div>
   </div>
 </template>
 <script>
-// import LoginForm from '_c/login-form'
+import { getLogin } from '@api/login'
 export default {
   data() {
     return {
-
-    };
+      form: {
+        stuname: '',
+        password: ''
+      }
+    }
   },
   methods: {
-    handleSubmit (data) {
-      console.log(data);
-      const param = {
-        accountNo: data.userName,
-        password: data.password
+    async comLogin() {
+      const res = await getLogin(this.form)
+      if (res.data) {
+        sessionStorage.setItem('SESSION_ID', '123')
+        this.$router.push({
+          path: '/homes',
+          params: res.data
+        })
       }
-      console.log(param);
-      this.$axios('/login',param).then((res) => {
-        console.log(res);
-
-      })
-      // this.$router.push({
-      //       name: this.$config.homeName
-      //     })
-      // this.handleLogin({ userNo: data.userName, password: data.password }).then(res => {
-      //   if (res.data.code === 'success') {
-      //     this.$router.push({
-      //       name: this.$config.homeName
-      //     })
-      //   } else {
-      //     this.$Message.error(res.data.result)
-      //   }
-      // })
     },
-  },
-  components: {
-    LoginForm
-  },
-};
+    comRegister() {
+      this.$router.push({
+        path: '/register'
+      })
+    }
+  }
+}
 </script>
-<style lang="scss" scoped>
-@import "./index.scss";
+<style lang="scss">
+@import url('./index.scss');
 </style>

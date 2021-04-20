@@ -4,7 +4,7 @@ export default [
     name: 'v-slot',
     component: () => import('@/views/demo/v-slot/index'),
     meta: {
-      auth: false,
+      auth: true,
       title: '插槽'
     }
   },
@@ -13,7 +13,7 @@ export default [
     name: 'm-table',
     component: () => import('@/views/demo/m-table/index'),
     meta: {
-      auth: false,
+      auth: true,
       title: '表格'
     }
   },
@@ -22,7 +22,7 @@ export default [
     name: 'm-filter',
     component: () => import('@/views/demo/m-filter/index'),
     meta: {
-      auth: false,
+      auth: true,
       title: '过滤器'
     }
   },
@@ -31,7 +31,7 @@ export default [
     name: 'm-provider',
     component: () => import('@/views/demo/m-provider/index'),
     meta: {
-      auth: false,
+      auth: true,
       title: 'provider'
     }
   },
@@ -40,7 +40,7 @@ export default [
     name: 'm-file',
     component: () => import('@/views/demo/m-file/index'),
     meta: {
-      auth: false,
+      auth: true,
       title: 'file'
     }
   },
@@ -49,7 +49,7 @@ export default [
     name: 'm-qrcode',
     component: () => import('@/views/demo/m-qrcode/index'),
     meta: {
-      auth: false,
+      auth: true,
       title: 'file'
     }
   },
@@ -58,7 +58,16 @@ export default [
     name: 'm-class',
     component: () => import('@/views/demo/class/index'),
     meta: {
-      auth: false,
+      auth: true,
+      title: 'file'
+    }
+  },
+  {
+    path: '/m-blob',
+    name: 'm-blob',
+    component: () => import('@/views/demo/m-blob/index'),
+    meta: {
+      auth: true,
       title: 'file'
     }
   }
