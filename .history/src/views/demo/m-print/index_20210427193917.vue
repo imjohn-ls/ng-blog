@@ -1,0 +1,35 @@
+<template>
+  <div>
+    <img :src="imgSrc" alt="" />
+    <el-button @click="vprint()">打印</el-button>
+  </div>
+</template>
+<script>
+import printJS from '@/plugin/print-js'
+export default {
+  data() {
+    return {
+      imgSrc: '',
+      dataBase:
+        'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEYAAABGCAYAAABxLuKEAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyFpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNS1jMDE0IDc5LjE1MTQ4MSwgMjAxMy8wMy8xMy0xMjowOToxNSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIChXaW5kb3dzKSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDo0NDAyMDI2MTQ5MkYxMUU4QkIxQUVEQzczMkFDODRBOSIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDo0NDAyMDI2MjQ5MkYxMUU4QkIxQUVEQzczMkFDODRBOSI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjQ0MDIwMjVGNDkyRjExRThCQjFBRURDNzMyQUM4NEE5IiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjQ0MDIwMjYwNDkyRjExRThCQjFBRURDNzMyQUM4NEE5Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+TKN6eQAABd9JREFUeNrsW31sFEUU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'
+    }
+  },
+  mounted() {
+    this.baseImg()
+  },
+  methods: {
+    baseImg() {
+      this.imgSrc = 'data:image/png;base64,' + this.dataBase
+    },
+    vprint() {
+      console.log('dsf')
+      printJS({
+        printable: this.dataBase,
+        type: 'pdf',
+        base64: true
+      })
+    }
+  }
+}
+</script>
+<style lang="scss" scoped></style>
