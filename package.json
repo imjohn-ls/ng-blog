@@ -3,9 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
+    "serve": "vue-cli-service serve --open",
     "dev": "vue-cli-service serve",
+    "dev:mock": "vue-cli-service serve --mode mock",
     "build": "vue-cli-service build --mode pro",
+    "mock": "vue-cli-service build --mode mock",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
@@ -17,6 +19,7 @@
     "js-cookie": "^2.2.1",
     "jsbarcode": "^3.11.3",
     "mockjs": "^1.1.0",
+    "swiper": "^3.4.2",
     "vue": "^2.6.11",
     "vue-qr": "^2.3.0",
     "vue-router": "^3.2.0",
