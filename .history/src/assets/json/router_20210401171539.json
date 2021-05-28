@@ -1,0 +1,21 @@
+[
+
+    {
+        "path": "/",
+        "meta": {
+          "auth": false,
+          "title": "首页"
+        },
+        "component": "wrap"
+    },
+    {
+        "id": "0",
+        "name": "v-slot",
+        "path": "/v-slot",
+        "title": "首页",
+        "meta": {
+            "auth": false,
+            "title": "插槽"
+        }
+    }
+]

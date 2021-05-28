@@ -1,0 +1,22 @@
+<template>
+  <div>
+    <el-tabs v-model="activeName" @tab-click="handleClick">
+    <el-tab-pane label="用户管理" name="first">temA</el-tab-pane>
+    <el-tab-pane label="配置管理" name="second">temB</el-tab-pane>
+    <el-tab-pane label="角色管理" name="third">tem</el-tab-pane>
+    <el-tab-pane label="定时任务补偿" name="fourth">temA</el-tab-pane>
+  </el-tabs>
+    <component :is="currentView"></component>
+  </div>
+</template>
+<script>
+export default {
+  name: 'm-component',
+  data() {
+    return {}
+  },
+  mounted() {},
+  methods: {}
+}
+</script>
+<style lang="scss" scoped></style>
