@@ -1,5 +1,6 @@
 // 拼接路径
 const resolve = dir => require('path').join(__dirname, dir)
+console.error(process.env.NODE_ENV)
 
 // 增加环境变量
 process.env.VUE_APP_VERSION = require('./package.json').version
@@ -18,7 +19,7 @@ if (process.env.NODE_ENV === 'development') {
 } else {
   publicPath = './'
 }
-
+const Version = `1.0.${new Date().getTime()}`
 module.exports = {
   // 根据你的实际情况更改这里
   publicPath,
@@ -46,7 +47,24 @@ module.exports = {
     },
     publicPath // 和 publicPath 保持一致
   },
-  css: {},
+  css: {
+    loaderOptions: {
+      css: {},
+      postcss: {
+        plugins: [
+          // 补全css前缀(解决兼容性)
+          require('autoprefixer')(),
+          // 把px单位换算成rem单位
+          require('postcss-pxtorem')({
+            rootValue: 32, // 换算的基数(设计图750的根字体为32)
+            selectorBlackList: ['.van', '.my-van'], // 要忽略的选择器并保留为px。
+            propList: ['*'], // 可以从px更改为rem的属性。
+            minPixelValue: 2 // 设置要替换的最小像素值。
+          })
+        ]
+      }
+    }
+  },
   configureWebpack: config => {
     // 非开发环境
     if (process.env.NODE_ENV !== 'development') {
@@ -105,6 +123,10 @@ module.exports = {
     if (process.env.VUE_APP_BUILD_MODE !== 'NOMOCK') {
       entry.add('@/mock').end()
     }
+    config.output
+      .filename(`js/[name].js?version=${Version}`)
+      .chunkFilename(`js/[name]_chunk.js?version=${Version}`)
+      .end()
   },
   // i18n
   pluginOptions: {

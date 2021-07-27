@@ -3,6 +3,21 @@
     {
         "name": "homes",
         "path": "/homes",
-        "title": "首页"
+        "label": "imjohn"
+    },
+    {
+        "name": "homes",
+        "path": "/homes",
+        "label": "imjohn"
+    },
+    {
+        "name": "homes",
+        "path": "/homes",
+        "label": "imjohn"
+    },
+    {
+        "name": "homes",
+        "path": "/homes",
+        "label": "imjohn"
     }
 ]

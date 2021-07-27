@@ -1,10 +1,11 @@
 import MyHome from '@/layout/my-home/my-home'
 import wrap from '@/views/home/home'
 import demo from './modules/demo/index'
+import article from './modules/article/index'
 export const frameInRoutes = [
   {
     path: '/',
-    redirect: { path: '/homes' }
+    redirect: { path: '/login' }
   },
   {
     path: '/login',
@@ -33,12 +34,13 @@ export const getRouters = [
       {
         path: '',
         meta: {
-          auth: false,
+          auth: true,
           title: '首页'
         },
         component: wrap
       },
-      ...demo
+      ...demo,
+      ...article
     ]
   }
 ]

@@ -1,61 +1,5 @@
 <template>
   <div>
-    <el-form :model="form" ref="form" :rules="rules" class="ui-query-form table-form" label-width="150px" key="1">
-        <el-form-item label="贴现方式" prop="discountMethod">
-          <!-- <el-select v-model="form.discountMethod" placeholder="请选择">
-            <el-option v-for="(item, index) in discountMethodList" :value="item.value" :label="item.label" :key="index"></el-option>
-          </el-select>-->
-          <span>买断式</span>
-        </el-form-item>
-        <el-form-item label="线上清算标识" prop="onlineClearFlag">
-          <el-input v-model="form.onlineClear" disabled="disabled"></el-input>
-        </el-form-item>
-        <el-form-item label="不可转让标识" prop="transMark">
-          <el-select v-model="form.transMark" placeholder="请选择">
-            <el-option v-for="(item, index) in transMarkList" :value="item.value" :label="item.label" :key="index"></el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item label="贴现利率" prop="discountRate">
-          <el-input v-model="form.discountRate" maxlength="5">
-            <template slot="append">%</template>
-          </el-input>
-        </el-form-item>
-
-        <el-form-item label="贴现日期" prop="discountDate">
-          <el-input v-model="form.discountDate" disabled="disabled"></el-input>
-        </el-form-item>
-        <el-form-item label="付息方式" prop="payInterestMethod">
-          <el-select v-model="form.payInterestMethod" placeholder="请选择">
-            <el-option v-for="(item, index) in payMethodList" :value="item.value" :label="item.label" :key="index">
-              {{item.value}}
-            </el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item label="贴入人账号" prop="pasteInPerNo">
-          <el-input v-model="form.pasteInPerNo" @input="clearNoNum('form', 'pasteInPerNo')" disabled="disabled" maxlength="30" placeholder="请填写贴入人账号"></el-input>
-          <m-btn class="ml30" label="常用交易对手" @click="selectPeople()"></m-btn>
-        </el-form-item>
-        <el-form-item label="贴入行行号" prop="pasteInBankNo">
-          <el-input v-model="form.pasteInBankNo" maxlength="30" @input="clearNoNum('form', 'pasteInBankNo')" placeholder="请填写贴入行行号"></el-input>
-          <m-btn class="ml30" label="开户行查询" @click="selectBankNum"></m-btn>
-        </el-form-item>
-        <el-form-item label="贴入行名称" prop="pasteInBankName">
-          <el-input v-model="form.pasteInBankName" maxlength="30" placeholder="请填写贴入行名称"></el-input>
-        </el-form-item>
-        <el-form-item label="贴现人入账行号" prop="discountInBankNo">
-          <el-input v-model="form.discountInBankNo" maxlength="30" @input="clearNoNum('form', 'discountInBankNo')" placeholder="请填写贴现人入账行号"></el-input>
-        </el-form-item>
-        <el-form-item label="贴现人入账账号" prop="discountInAcNo">
-          <el-input v-model="form.discountInAcNo" maxlength="30" @input="clearNoNum('form', 'discountInAcNo')" placeholder="请填写贴现人入账账号"></el-input>
-        </el-form-item>
-        <el-form-item label="贴现人备注" prop="remark">
-          <el-input v-model="form.remark" maxlength="50"></el-input>
-        </el-form-item>
-        <div class="btn-body">
-          <m-btn type="primary" label="提交" @click="confirmForm('form')"></m-btn>
-          <m-btn type="normal" label="返回" @click="$parent.reload"></m-btn>
-        </div>
-      </el-form>
     <!-- <el-table :data="tableData" :span-method="arraySpanMethod" border style="width: 100%">
       <el-table-column prop="id" label="ID" width="180"> </el-table-column>
       <el-table-column prop="name" label="姓名"> </el-table-column>
@@ -174,6 +118,7 @@
 </template>
 <script>
 export default {
+  name: 'm-table',
   data() {
     return {
       form: {
@@ -394,8 +339,8 @@ export default {
     }
   },
   mounted() {
-    this.init()
-    this.test()
+    // this.init()
+    // this.test()
     // for (let i = 0; i < this.tableData.length; i++) {
     //   this.tableData[i].list.forEach(ele => {
     //     this.tableArr.push(this.tableData[i].list.length)

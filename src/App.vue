@@ -26,5 +26,7 @@ setHtmlFontSize()
 </script>
 <style lang="scss" scoped>
 #app {
+  padding-bottom: 50px;
+  min-height: 100%;
 }
 </style>

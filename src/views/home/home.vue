@@ -1,79 +1,110 @@
 <template>
   <div class="app-home">
-    <div class="grid-container">
-      <div class="A"></div>
-      <div class="B"></div>
-      <div class="C"></div>
-      <div class="D"></div>
-      <div class="E">
-        <el-button @click="goTo('./demo')">demo</el-button>
-        <el-button @click="goTo('./m-table')">m-table</el-button>
-        <el-button @click="goTo('./m-filter')">m-filter</el-button>
-        <el-button @click="goTo('./m-provider')">m-provider</el-button>
-        <el-button @click="goTo('./m-file')">m-file</el-button>
-        <el-button @click="goTo('./m-qrcode')">m-qrcode</el-button>
-        <el-button @click="goTo('./m-class')">m-class</el-button>
-        <el-button @click="goTo('./m-blob')">m-blob</el-button>
-        <el-button @click="goTo('./m-secret')">m-secret</el-button>
-        <el-button @click="goTo('./m-print')">m-print</el-button>
-        <el-button @click="goTo('./m-component')">m-component</el-button>
-        <el-button @click="goTo('./m-forOf')">m-forOf</el-button>
-        <el-button @click="goTo('./m-object')">m-object</el-button>
+    <div class="app-conent">
+      <div class="block">
+        <el-carousel height="150px">
+          <el-carousel-item v-for="item in 4" :key="item">
+            <h3 class="small">{{ item }}</h3>
+          </el-carousel-item>
+        </el-carousel>
+      </div>
+      <div class="aticleBlock">
+        <ul>
+          <li @click="GoArticleDetail(item)" v-for="(item, index) in article" :key="index">
+            {{ item.aticleTitle }}
+          </li>
+        </ul>
       </div>
     </div>
   </div>
 </template>
 <script>
+import { getArticle } from '@api/api'
 export default {
   name: 'Home',
   data() {
-    return {}
+    return {
+      article: []
+    }
   },
   mounted() {
     console.log(this.$router)
     // this.init()
+    this.getArt()
   },
   methods: {
     goTo(val) {
       this.$router.push(val)
+    },
+    async getArt() {
+      const res = await getArticle({
+        pageSize: '5'
+      })
+      if (res.data) {
+        this.article = res.data
+      }
+    },
+    GoArticleDetail(val) {
+      // this.$router.push({
+      //   name: 'm-article',
+      //   query: {
+      //     art: JSON.stringify(val)
+      //   }
+      // })
+      sessionStorage.setItem('articleTitle', JSON.stringify(val))
+      this.$router.push({
+        name: 'm-article'
+      })
     }
   }
 }
 </script>
 <style lang="scss" scoped>
 .app-home {
-  max-width: 1200px;
-  margin: 0 auto;
-  overflow: hidden;
-  .grid-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr 0.9fr 1.1fr;
-    grid-template-rows: 1fr 1fr 1fr;
-    gap: 0px 0px;
-    grid-template-areas:
-      'A A C D'
-      'B B C D'
-      'E E E E';
+  width: 100%;
+  .app-conent {
+    width: 100%;
+    height: 600px;
+    // position: relative;
   }
+  // .app-conent::after {
+  //   background: url('../../assets/img/bz.jpg');
+  //   content: '';
+  //   opacity: 0.5;
+  //   top: 0;
+  //   left: 0;
+  //   bottom: 0;
+  //   right: 0;
+  //   position: absolute;
+  // }
+}
+.el-carousel__item h3 {
+  color: #475669;
+  font-size: 14px;
+  opacity: 0.75;
+  line-height: 150px;
+  margin: 0;
+}
 
-  .A {
-    grid-area: A;
-  }
+.el-carousel__item:nth-child(2n) {
+  background-color: #99a9bf;
+}
 
-  .B {
-    grid-area: B;
-  }
-
-  .C {
-    grid-area: C;
-  }
-
-  .D {
-    grid-area: D;
-  }
-
-  .E {
-    grid-area: E;
+.el-carousel__item:nth-child(2n + 1) {
+  background-color: #d3dce6;
+}
+.el-carousel__item.is-animating {
+  transition: opacity 0.2s ease-in-out !important;
+}
+.aticleBlock {
+  ul {
+    li {
+      font-size: 16px;
+      text-align: left;
+      line-height: 32px;
+      padding-left: 15px;
+      cursor: pointer;
+    }
   }
 }
 </style>

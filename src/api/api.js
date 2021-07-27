@@ -1,17 +1,17 @@
 import { httpPost } from './http'
-/* 查询所有学生 */
-export const perQueryStu = param => {
-  return httpPost('getUser', param)
+/* 登录 */
+export const perUserLogin = param => {
+  return httpPost('userLogin', param)
 }
-/* 新增学生 */
-export const perAddStu = param => {
-  return httpPost('student/addStu', param)
+/* 查询文章 */
+export const getArticle = param => {
+  return httpPost('getArticle', param)
 }
-/* 删除学生 */
-export const perDelStu = param => {
-  return httpPost('student/delStu', param)
+/* 写入文章 */
+export const writeAticle = param => {
+  return httpPost('writeAticle', param)
 }
-/* 修改学生信息 */
-export const perEditStu = param => {
-  return httpPost('student/updateStu', param)
+/* 打印测试接口 */
+export const perPrint = param => {
+  return httpPost('proList', param)
 }

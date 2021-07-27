@@ -1,0 +1,72 @@
+[
+    {
+        "name": "m-table",
+        "path": "./m-table",
+        "label": "m-table"
+    },
+    {
+        "name": "m-filter",
+        "path": "./m-filter",
+        "label": "m-filter"
+    },
+    {
+        "name": "m-provider",
+        "path": "./m-provider",
+        "label": "m-provider"
+    },
+    {
+        "name": "m-provider",
+        "path": "./m-provider",
+        "label": "m-provider"
+    },
+    {
+        "name": "m-file",
+        "path": "./m-file",
+        "label": "m-file"
+    },
+    {
+        "name": "m-qrcode",
+        "path": "./m-qrcode",
+        "label": "m-qrcode"
+    },
+    {
+        "name": "m-class",
+        "path": "./m-class",
+        "label": "m-class"
+    },
+    {
+        "name": "m-blob",
+        "path": "./m-blob",
+        "label": "m-blob"
+    },
+    {
+        "name": "m-secret",
+        "path": "./m-secret",
+        "label": "m-secret"
+    },
+    {
+        "name": "m-print",
+        "path": "./m-print",
+        "label": "m-print"
+    },
+    {
+        "name": "m-component",
+        "path": "./m-component",
+        "label": "m-component"
+    },
+    {
+        "name": "m-forOf",
+        "path": "./m-forOf",
+        "label": "m-forOf"
+    },
+    {
+        "name": "m-object",
+        "path": "./m-object",
+        "label": "m-object"
+    },
+    {
+        "name": "m-tinymce",
+        "path": "./m-tinymce",
+        "label": "m-tinymce"
+    }
+]

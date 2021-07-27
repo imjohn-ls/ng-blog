@@ -1,7 +1,7 @@
 # 所有环境默认
 
 # 页面 title 前缀
-VUE_APP_TITLE=ng-blog
+VUE_APP_TITLE=Imjohn
 
 # 指定构建模式
 NODE_ENV=production

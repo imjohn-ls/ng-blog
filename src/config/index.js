@@ -2,7 +2,7 @@ export default {
   /**
    * @description 配置显示在浏览器标签的title
    */
-  title: 'ng-blog',
+  title: 'imjohn',
   /**
    * @description token在Cookie中存储的天数，默认1天
    */
@@ -18,9 +18,9 @@ export default {
   wxConfig: {
     self_redirect: false,
     id: 'qrcode',
-    appid: 'wx243ad0422689c414',
-    scope: 'snsapi_login',
-    redirect_uri: process.env.NODE_ENV === 'development' ? 'http://nc.wingsbro.com?code=CODE&state=STATE' : window.location.href + '?code=CODE&state=STATE',
+    appid: 'wxcbff648c8282326e',
+    scope: 'snsapi_userinfo',
+    redirect_uri: process.env.NODE_ENV === 'development' ? 'https://www.imjohn.cn?code=CODE&state=STATE' : window.location.href + '?code=CODE&state=STATE',
     state: '1211111',
     style: 'black',
     href: ''

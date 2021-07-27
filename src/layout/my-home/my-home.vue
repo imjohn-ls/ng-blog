@@ -6,7 +6,7 @@
         <router-view v-if="isRouterAlive" />
       </transition>
     </div>
-    <!-- <bottom></bottom> -->
+    <bottom></bottom>
   </div>
 </template>
 
@@ -26,7 +26,7 @@ export default {
   },
   data() {
     return {
-      content: '',
+      content: 'el-fade-in',
       isRouterAlive: true
     }
   },
@@ -41,7 +41,9 @@ export default {
 
 <style lang="scss" scoped>
 .wrapper {
+  min-height: 800px;
   background: rgba(248, 248, 248, 1);
+  padding-bottom: 60px;
   .wrapper_content {
     // width: 1200px;
     margin: auto;

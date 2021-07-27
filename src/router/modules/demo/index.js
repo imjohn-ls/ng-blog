@@ -13,7 +13,7 @@ export default [
     name: 'm-table',
     component: () => import('@/views/demo/m-table/index'),
     meta: {
-      auth: false,
+      auth: true,
       title: '表格'
     }
   },
@@ -76,7 +76,7 @@ export default [
     name: 'm-secret',
     component: () => import('@/views/demo/m-secret/index'),
     meta: {
-      auth: false,
+      auth: true,
       title: 'file'
     }
   },
@@ -85,7 +85,7 @@ export default [
     name: 'm-print',
     component: () => import('@/views/demo/m-print/index'),
     meta: {
-      auth: false,
+      auth: true,
       title: 'file'
     }
   },
@@ -94,7 +94,7 @@ export default [
     name: 'm-component',
     component: () => import('@/views/demo/m-component/index'),
     meta: {
-      auth: false,
+      auth: true,
       title: 'file'
     }
   },
@@ -103,7 +103,7 @@ export default [
     name: 'm-forOf',
     component: () => import('@/views/demo/m-forOf/index'),
     meta: {
-      auth: false,
+      auth: true,
       title: 'file'
     }
   },
@@ -112,8 +112,44 @@ export default [
     name: 'm-object',
     component: () => import('@/views/demo/m-object/index'),
     meta: {
-      auth: false,
+      auth: true,
       title: 'file'
+    }
+  },
+  {
+    path: '/javascript',
+    name: 'javascript',
+    component: () => import('@/views/demo/javascript/index'),
+    meta: {
+      auth: true,
+      title: 'file'
+    }
+  },
+  {
+    path: '/nodejs',
+    name: 'nodejs',
+    component: () => import('@/views/demo/nodejs/index'),
+    meta: {
+      auth: true,
+      title: 'file'
+    }
+  },
+  {
+    path: '/java',
+    name: 'java',
+    component: () => import('@/views/demo/java/index'),
+    meta: {
+      auth: true,
+      title: 'file'
+    }
+  },
+  {
+    path: '/m-tinymce',
+    name: 'm-tinymce',
+    component: () => import('@/views/demo/m-tinymce/index'),
+    meta: {
+      auth: true,
+      title: 'm-tinymce'
     }
   }
 ]
