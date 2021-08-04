@@ -28,8 +28,6 @@ export default {
     }
   },
   mounted() {
-    console.log(this.$router)
-    // this.init()
     this.getArt()
   },
   methods: {

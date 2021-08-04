@@ -5,7 +5,7 @@ import article from './modules/article/index'
 export const frameInRoutes = [
   {
     path: '/',
-    redirect: { path: '/login' }
+    redirect: { path: '/homes' }
   },
   {
     path: '/login',
@@ -34,7 +34,7 @@ export const getRouters = [
       {
         path: '',
         meta: {
-          auth: true,
+          auth: false,
           title: '首页'
         },
         component: wrap

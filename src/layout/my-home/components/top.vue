@@ -17,8 +17,20 @@
           </el-input> -->
         </div>
         <div>
-          <el-button>注册</el-button>
-          <el-button>登录</el-button>
+          <div v-if="userInfo.userName">
+            <el-dropdown>
+              <span class="el-dropdown-link"> {{ userInfo.userName }}<i class="el-icon-arrow-down el-icon--right"></i> </span>
+              <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item>
+                  <el-button @click="Logout()">退出登录</el-button>
+                </el-dropdown-item>
+              </el-dropdown-menu>
+            </el-dropdown>
+          </div>
+          <div v-else>
+            <el-button @click="goRegister()">注册</el-button>
+            <el-button @click="goLogin()">登录</el-button>
+          </div>
         </div>
       </div>
       <el-drawer title="m-demo" :visible.sync="drawer" :direction="direction" :before-close="closeDrawer">
@@ -36,6 +48,7 @@
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex'
 export default {
   data() {
     return {
@@ -53,8 +66,14 @@ export default {
       direction: 'rtl'
     }
   },
-  mounted() {},
+  mounted() {
+    console.log(this.userInfo.userName)
+  },
+  computed: {
+    ...mapState('login', ['userInfo'])
+  },
   methods: {
+    ...mapActions('login', ['handleLoginOut']),
     querySearchAsync(queryString, cb) {
       const searchList = this.states
       var results = queryString ? searchList.filter(this.createStateFilter(queryString)) : searchList
@@ -91,6 +110,22 @@ export default {
     goTo(val) {
       this.drawer = !this.drawer
       this.$router.push(val)
+    },
+    goRegister() {
+      this.$router.push({
+        name: 'register'
+      })
+    },
+    goLogin() {
+      this.$router.push({
+        name: 'login'
+      })
+    },
+    Logout() {
+      this.handleLoginOut()
+      this.$router.push({
+        name: 'login'
+      })
     }
   }
 }
@@ -138,5 +173,11 @@ export default {
     width: 120px;
     margin: 5px;
   }
+}
+.el-dropdown {
+  color: #f0f0f0;
+}
+.el-dropdown-link {
+  font-size: 16px;
 }
 </style>

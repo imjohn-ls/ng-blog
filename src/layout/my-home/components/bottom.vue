@@ -12,12 +12,10 @@ export default {}
 .bottom {
   margin: 0;
   padding: 0;
-  width: 1200px;
   height: 60px;
+  width: 100%;
   line-height: 60px;
   z-index: 3;
-  position: fixed;
-  bottom: 0;
   animation: mymove 1s linear infinite alternate;
   -webkit-animation: mymove 1s linear infinite alternate; /*Safari and Chrome*/
   p {
@@ -26,24 +24,24 @@ export default {}
     width: 100%;
     height: 60px;
     line-height: 60px;
-    background-image: url('../../../assets/img/bottom-bg.png');
+    // background: url('../../../assets/img/bottom-bg.png') no-repeat;
   }
 }
 @keyframes mymove {
   from {
-    bottom: 0px;
+   margin-bottom: 0px;
   }
   to {
-    bottom: 3px;
+    margin-bottom: 3px;
   }
 }
 
 @-webkit-keyframes mymove /*Safari and Chrome*/ {
   from {
-    bottom: 0px;
+    margin-bottom: 0px;
   }
   to {
-    bottom: 3px;
+    margin-bottom: 3px;
   }
 }
 </style>

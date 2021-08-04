@@ -8,9 +8,12 @@
         <el-form-item label="密码">
           <el-input type="password" maxlength="16" placeholder="请输入密码" v-model="form.passWord"></el-input>
         </el-form-item>
-        <el-button @click="comLogin">登录</el-button>
-        <el-button @click="weChatLogin">微信扫码</el-button>
-        <!-- <el-button @click="comRegister">注册</el-button> -->
+        <el-form-item>
+          <el-button @click="comLogin">登录</el-button>
+          <el-button @click="comRegister">注册</el-button>
+          <el-button @click="weChatLogin">微信扫码</el-button>
+          <!-- <el-button @click="comRegister">注册</el-button> -->
+        </el-form-item>
       </el-form>
     </div>
     <div v-show="qrCodeModal" title="请使用微信扫码登录！" class-name="vertical-center-modal" footer-hide width="350">
@@ -20,10 +23,9 @@
   </div>
 </template>
 <script>
-import { getLogin } from '@api/login'
 import { perUserLogin } from '@api/api'
-import { perTest } from '@api/mock'
-import { mapGetters, mapState } from 'vuex'
+import { mapMutations, mapState } from 'vuex'
+import store from '@/store/index'
 export default {
   data() {
     return {
@@ -41,19 +43,13 @@ export default {
     ...mapState('login', ['isIExplorer'])
   },
   methods: {
+    ...mapMutations('login', ['setUserInfo']),
     async comLogin() {
-      // sessionStorage.setItem('SESSION_ID', '123')
-      // this.$router.push({
-      //   path: '/homes'
-      // })
-
-      // const test = await perTest()
-      // console.log(test)
-
       try {
         const res = await perUserLogin(this.form)
         if (res.data.respCode === '00000000') {
           sessionStorage.setItem('SESSION_ID', res.data.data[0].userName)
+          store.commit('login/setUserInfo', res.data.data[0])
           this.$router.push({
             path: '/homes',
             params: res.data
