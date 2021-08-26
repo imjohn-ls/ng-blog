@@ -36,7 +36,7 @@ router.beforeEach(async (to, from, next) => {
   if (token) {
     if (to.path === '/login') {
       next({
-        path: '/home'
+        path: '/homes'
       })
     } else {
       next()

@@ -4,7 +4,7 @@
     a.self_redirect === !0 ? (c = 'true') : a.self_redirect === !1 && (c = 'false')
     var d = b.createElement('iframe'),
       e =
-        'https://open.weixin.qq.com/connect/qrconnect?appid=' +
+        'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' +
         a.appid +
         '&scope=' +
         a.scope +

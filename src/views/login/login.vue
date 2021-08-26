@@ -44,22 +44,25 @@ export default {
   },
   methods: {
     ...mapMutations('login', ['setUserInfo']),
-    async comLogin() {
-      try {
-        const res = await perUserLogin(this.form)
-        if (res.data.respCode === '00000000') {
-          sessionStorage.setItem('SESSION_ID', res.data.data[0].userName)
-          store.commit('login/setUserInfo', res.data.data[0])
-          this.$router.push({
-            path: '/homes',
-            params: res.data
-          })
-        } else {
-          this.$message('别乱搞,大哥!')
-        }
-      } catch (error) {
-        this.$message('没网,大哥!')
-      }
+    comLogin() {
+      perUserLogin(this.form).then((res) => {
+        console.log(res)
+      })
+      // try {
+      //   const res = await perUserLogin(this.form)
+      //   if (res.data.respCode === '00000000') {
+      //     sessionStorage.setItem('SESSION_ID', res.data.data[0].userName)
+      //     store.commit('login/setUserInfo', res.data.data[0])
+      //     this.$router.push({
+      //       path: '/homes',
+      //       params: res.data
+      //     })
+      //   } else {
+      //     this.$message('别乱搞,大哥!')
+      //   }
+      // } catch (error) {
+      //   this.$message('没网,大哥!')
+      // }
     },
     comRegister() {
       this.$router.push({

@@ -24,6 +24,7 @@ export default {
     // 退出登录
     handleLoginOut({ commit }) {
       return new Promise((resolve, reject) => {
+        sessionStorage.removeItem('SESSION_ID')
         commit('clearUserInfo')
         // loginOut()
         //   .then(res => {

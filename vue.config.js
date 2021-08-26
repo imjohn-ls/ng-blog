@@ -36,8 +36,8 @@ module.exports = {
     proxy: {
       '/api': {
         // target: 'http://www.imjohn.cn:9000', // 腾讯云node接口
-        // target: 'http://127.0.0.1:9000', // 本地node接口
-        target: 'http://127.0.0.1:8020', // 本地java接口
+        target: 'http://127.0.0.1:80', // 本地node接口
+        // target: 'http://42.192.52.100:80', // 本地java接口
         changeOrigin: true,
         onProxyRes: saveJSON ? recordProxyJson : null
         // pathRewrite: {

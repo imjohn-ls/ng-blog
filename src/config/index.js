@@ -18,9 +18,9 @@ export default {
   wxConfig: {
     self_redirect: false,
     id: 'qrcode',
-    appid: 'wxcbff648c8282326e',
-    scope: 'snsapi_userinfo',
-    redirect_uri: process.env.NODE_ENV === 'development' ? 'https://www.imjohn.cn?code=CODE&state=STATE' : window.location.href + '?code=CODE&state=STATE',
+    appid: 'wx8b6f7ec37487ab03',
+    scope: 'snsapi_base',
+    redirect_uri: process.env.NODE_ENV === 'development' ? 'www.imjohn.cn?code=CODE&state=STATE' : window.location.href + '?code=CODE&state=STATE',
     state: '1211111',
     style: 'black',
     href: ''
